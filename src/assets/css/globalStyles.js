@@ -27,7 +27,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    background-color: #fff;
+    background-color: #f2f2f2;
 	font-family: 'Lexend Deca', sans-serif;
 }
 ol, ul {
@@ -47,7 +47,7 @@ table {
 }
 * {
   box-sizing: border-box;
-  --highlight-color: #126BA5;
+  --highlight-color: #52B6FF;;
   --text: #666666;
 }
 `;
