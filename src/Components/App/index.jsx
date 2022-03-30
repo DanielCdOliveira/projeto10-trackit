@@ -4,9 +4,11 @@ import Register from "../Register";
 import Habits from "../Habits";
 import Today from "../Today";
 import History from "../History";
+import GlobalStyle from "../../assets/css/globalStyles";
 function App() {
   return (
     <BrowserRouter>
+       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Start />}></Route>
         <Route path="/cadastro" element={<Register />}></Route>
