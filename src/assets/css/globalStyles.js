@@ -28,6 +28,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
     background-color: #fff;
+	font-family: 'Lexend Deca', sans-serif;
 }
 ol, ul {
 	list-style: none;

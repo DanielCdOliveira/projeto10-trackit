@@ -1,5 +1,8 @@
+import Header from "../../Utilities/Header";
+
 function Habits() {
-  return <h1>Habits</h1>;
+  return <Header />
+  
 }
 
 export default Habits;
