@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import logo from "./../assets/logo.png"
-function Header() {
+
+function Header({image}) {
   return (
     <HeadeR>
       <h1>TrackIt</h1>
-      <img src={logo} alt="" />
+      <img src={image} alt="" />
     </HeadeR>
   );
 }

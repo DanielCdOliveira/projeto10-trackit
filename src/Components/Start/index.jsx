@@ -16,8 +16,8 @@ function Start() {
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
 
     const promise = axios.post(URL, data);
-    promise.then((e) =>{console.log(e)
-    navigate("/habitos")})
+    promise.then((response) =>{console.log(response.data)
+    navigate("/habitos", { state: response.data })})
     promise.catch((e) =>{console.log(e)})
   }
   return (
