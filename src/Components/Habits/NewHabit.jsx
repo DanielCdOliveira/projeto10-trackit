@@ -7,7 +7,7 @@ import { AuthContext } from "../../Context/Auth";
 
 function NewHabit(props) {
   const { user } = useContext(AuthContext);
-  const { addHabit, setAddHabit } = props;
+  const { addHabit, setAddHabit, setMyHabits } = props;
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [days, setDays] = useState([]);
   const [habit, setHabit] = useState("");
@@ -31,7 +31,17 @@ function NewHabit(props) {
       config
     );
     promise.then((response) => {
-      console.log(response);
+      const promise = axios.get(
+        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+        config
+      );
+
+      promise.then((response) => {
+        setMyHabits(response.data);
+      });
+      promise.catch((response) => {
+        console.log(response);
+      });
     });
     promise.catch((response) => {
       console.log(response);

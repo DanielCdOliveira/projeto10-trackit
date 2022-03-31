@@ -34,31 +34,35 @@ function Habits() {
       console.log(response);
     });
   }, []);
-
+ 
+  
   function toggle() {
     setAddHabit(true);
   }
-  console.log(myHabits);
-  return (
-    <Main>
-      <Header image={user.img} />
-      <Title>
-        <h2>Meus hábitos</h2>
-        <BsPlusSquareFill
-          onClick={() => {
-            toggle();
-          }}
-        />
-      </Title>
-      <NewHabit addHabit={addHabit} setAddHabit={setAddHabit} />
-      <ul>
-        {myHabits.map((item,index) => (
-          <ShowMyHabits key={index}item={item} />
-        ))}
-      </ul>
-      <Footer />
-    </Main>
-  );
+
+
+  
+    return (
+      <Main>
+        <Header image={user.img} />
+        <Title>
+          <h2>Meus hábitos</h2>
+          <BsPlusSquareFill
+            onClick={() => {
+              toggle();
+            }}
+          />
+        </Title>
+        <NewHabit addHabit={addHabit} setAddHabit={setAddHabit} setMyHabits={setMyHabits}/>
+        <ul>
+          {myHabits.map((item,index,) => (
+            <ShowMyHabits key={index}item={item} setMyHabits={setMyHabits} />
+          ))}
+        </ul>
+        <Footer />
+      </Main>)
+  
+  
 }
 
 const Title = styled.div`

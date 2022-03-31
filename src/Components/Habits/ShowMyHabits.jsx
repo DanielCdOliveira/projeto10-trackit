@@ -1,8 +1,48 @@
 import styled from "styled-components";
+import axios from "axios";
+import { AuthContext } from "../../Context/Auth";
+import { useContext } from "react";
 import { BsTrash } from "react-icons/bs";
 
-function ShowMyHabits({ item }) {
+function ShowMyHabits({ item, haveHabit, setMyHabits }) {
+  const { user } = useContext(AuthContext);
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+  function deleteHabit(id) {
+    if (window.confirm("Tem certeza que deseja remover este hábito?")) {
+      const promise = axios.delete(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+        config
+      );
+      promise.then(() => {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        const promise = axios.get(
+          "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+          config
+        );
+
+        promise.then((response) => {
+          setMyHabits(response.data);
+        });
+        promise.catch((response) => {
+          console.log(response);
+        });
+      });
+      promise.catch((response) => {
+        console.log(response);
+      });
+    }
+    console.log(id);
+  }
+  console.log(haveHabit);
 
   return (
     <Habit>
@@ -10,22 +50,29 @@ function ShowMyHabits({ item }) {
       <ul>
         {week.map((day, index) => {
           let css = item.days.indexOf(index) > -1 ? "day selected" : "day";
-          return <li key={index+565} className={css}>{day}</li>;
+          return (
+            <li key={index + 565} className={css}>
+              {day}
+            </li>
+          );
         })}
       </ul>
-      <BsTrash/>
-
+      <BsTrash
+        onClick={() => {
+          deleteHabit(item.id);
+        }}
+      />
     </Habit>
   );
 }
 
 const Habit = styled.li`
-    background-color: #fff;
-    margin-bottom:10px ;
-    padding: 15px 30px 15px 15px;
-    justify-content: center;
-    position: relative;
-    word-break: break-all;
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 15px 30px 15px 15px;
+  justify-content: center;
+  position: relative;
+  word-break: break-all;
   .day {
     width: 30px;
     height: 30px;
@@ -38,23 +85,27 @@ const Habit = styled.li`
     color: #cfcfcf;
     margin-right: 4px;
   }
-  h4{
-      color: var(--text);
+  h4 {
+    color: var(--text);
     margin-bottom: 8px;
   }
   .selected {
     background-color: #cfcfcf;
     color: #fff;
   }
-  ul{
-      display: flex;
+  ul {
+    display: flex;
   }
-  svg{
-      position: absolute;
-      font-size: 15px;
-      right: 10px;
-      top: 11px;
-      color: var(--text);
+  svg {
+    position: absolute;
+    font-size: 15px;
+    right: 10px;
+    top: 11px;
+    color: var(--text);
+  }
+  p {
+    color: var(--text);
+    font-size: 18px;
   }
 `;
 
