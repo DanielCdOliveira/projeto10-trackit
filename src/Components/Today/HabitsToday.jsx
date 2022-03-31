@@ -8,12 +8,6 @@ import { BsCheckSquareFill } from "react-icons/bs";
 
 function HabitsToday({ item }) {
   
-
-
-
-
-
-
   return (
     <Habit >
       <div className="info">

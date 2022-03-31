@@ -1,4 +1,3 @@
-
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
@@ -7,7 +6,7 @@ import Days from "./Days";
 import { AuthContext } from "../../Context/Auth";
 
 function NewHabit(props) {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const { addHabit, setAddHabit } = props;
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [days, setDays] = useState([]);
@@ -25,10 +24,11 @@ function NewHabit(props) {
   }
   function save() {
     const data = { name: habit, days: days };
-    console.log(data)
+    console.log(data);
     const promise = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
-      data, config
+      data,
+      config
     );
     promise.then((response) => {
       console.log(response);
@@ -75,7 +75,8 @@ const New = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  background-color: #fff;
+  margin-bottom: 10px;
 
   input {
     width: 88%;
@@ -83,6 +84,9 @@ const New = styled.div`
     margin-bottom: 8px;
     border: 1px solid #d5d5d5;
     border-radius: 5px;
+    font-size: 20px;
+    line-height: 25px;
+    padding-left: 11px;
   }
   .buttons {
     display: flex;

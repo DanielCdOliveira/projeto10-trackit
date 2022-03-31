@@ -17,7 +17,7 @@ function AuthProvider({ children }) {
     promise.then((response) => {
       console.log(response.data);
       setUser({ ...data, token: response.data.token, img: response.data.image });
-      navigate("/hoje");
+      navigate("/habitos");
       promise.catch((e) => {
         console.log(e);
       });

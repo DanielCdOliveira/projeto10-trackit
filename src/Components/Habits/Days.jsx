@@ -46,7 +46,6 @@ const Week = styled.ul`
   width: 88%;
   height: 30px;
   margin-bottom: 30px;
-  background-color: #8ea705;
   display: flex;
   justify-content: flex-start;
 `;
