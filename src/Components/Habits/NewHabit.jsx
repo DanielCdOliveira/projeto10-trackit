@@ -1,34 +1,64 @@
-// import { useLocation } from "react-router-dom";
-import { useState } from "react";
+
+import { useState, useContext } from "react";
 import styled from "styled-components";
-// import { BsPlusSquareFill } from "react-icons/bs";
-// import axios from "axios";
+import axios from "axios";
+
 import Days from "./Days";
+import { AuthContext } from "../../Context/Auth";
 
 function NewHabit(props) {
+  const {user} = useContext(AuthContext)
   const { addHabit, setAddHabit } = props;
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
-  const [days,setDays] = useState([])
-  
+  const [days, setDays] = useState([]);
+  const [habit, setHabit] = useState("");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
 
-  function cancel(){
-    setAddHabit(false)
-    setDays([])
+  function cancel() {
+    setAddHabit(false);
+    setDays([]);
+    setHabit("");
   }
-  function save(){
-
+  function save() {
+    const data = { name: habit, days: days };
+    console.log(data)
+    const promise = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+      data, config
+    );
+    promise.then((response) => {
+      console.log(response);
+    });
+    promise.catch((response) => {
+      console.log(response);
+    });
   }
-
-
 
   if (addHabit) {
     return (
       <New>
-        <input type="text" name="" id="" placeholder="nome do hábito" />
-        <Days week={week} days={days} setDays={setDays}/>
+        <input
+          type="text"
+          name=""
+          id=""
+          placeholder="nome do hábito"
+          value={habit}
+          onChange={(e) => {
+            setHabit(e.target.value);
+          }}
+        />
+        <Days week={week} days={days} setDays={setDays} />
         <div className="buttons">
-          <button onClick={()=>cancel()} className="cancel">Cancelar</button>
-          <button className="save">Salvar</button>
+          <button onClick={() => cancel()} className="cancel">
+            Cancelar
+          </button>
+          <button onClick={() => save()} className="save">
+            Salvar
+          </button>
         </div>
       </New>
     );
@@ -36,7 +66,6 @@ function NewHabit(props) {
     return <></>;
   }
 }
-
 
 const New = styled.div`
   width: 100%;
@@ -47,7 +76,6 @@ const New = styled.div`
   justify-content: center;
   align-items: center;
   background-color: red;
-  
 
   input {
     width: 88%;
@@ -80,6 +108,5 @@ const New = styled.div`
     margin-left: 18px;
   }
 `;
-
 
 export default NewHabit;
