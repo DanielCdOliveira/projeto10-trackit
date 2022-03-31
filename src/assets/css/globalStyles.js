@@ -47,7 +47,7 @@ table {
 }
 * {
   box-sizing: border-box;
-  --highlight-color: #52B6FF;;
+  --highlight-color: #52B6FF;
   --text: #666666;
 }
 `;

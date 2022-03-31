@@ -5,13 +5,14 @@ import axios from "axios";
 import Header from "../../Utilities/Header";
 import Main from "../../Utilities/Main";
 import NewHabit from "./NewHabit";
+import Footer from "../../Utilities/Footer";
 import { AuthContext } from "../../Context/Auth";
 
 import { BsPlusSquareFill } from "react-icons/bs";
 
 function Habits() {
-  const [addHabit, setAddHabit] = useState(false);
   const { user } = useContext(AuthContext);
+  const [addHabit, setAddHabit] = useState(false);
 
   useEffect(() => {
     const config = {
@@ -37,7 +38,7 @@ function Habits() {
   }
 
   return (
-    <>
+    
       <Main>
         <Header image={user.img} />
         <Title>
@@ -49,8 +50,9 @@ function Habits() {
           />
         </Title>
         <NewHabit addHabit={addHabit} setAddHabit={setAddHabit} />
+        <Footer/>
       </Main>
-    </>
+  
   );
 }
 
@@ -63,10 +65,10 @@ const Title = styled.div`
   h2 {
     font-size: 23px;
     line-height: 29px;
-    color: var(--highlight-color);
+    color: #126ba5;
   }
   svg {
-    color: #52b6ff;
+    color: var(--highlight-color);
     font-size: 30px;
   }
 `;
