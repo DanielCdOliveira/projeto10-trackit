@@ -9,6 +9,17 @@ function NewHabit(props) {
   const { addHabit, setAddHabit } = props;
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [days,setDays] = useState([])
+  
+
+  function cancel(){
+    setAddHabit(false)
+    setDays([])
+  }
+  function save(){
+
+  }
+
+
 
   if (addHabit) {
     return (
@@ -16,7 +27,7 @@ function NewHabit(props) {
         <input type="text" name="" id="" placeholder="nome do hábito" />
         <Days week={week} days={days} setDays={setDays}/>
         <div className="buttons">
-          <button className="cancel">Cancelar</button>
+          <button onClick={()=>cancel()} className="cancel">Cancelar</button>
           <button className="save">Salvar</button>
         </div>
       </New>
@@ -36,6 +47,7 @@ const New = styled.div`
   justify-content: center;
   align-items: center;
   background-color: red;
+  
 
   input {
     width: 88%;

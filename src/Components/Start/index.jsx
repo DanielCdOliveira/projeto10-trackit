@@ -1,24 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+
+import { AuthContext } from "../../Context/Auth";
+
 import logo from "./../../assets/logo.png";
 import Container from "./../../Utilities/Container.jsx"
 
 function Start() {
+  const {logIn} = useContext(AuthContext)
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate()
-
+  
   function login(e) {
     e.preventDefault();
-    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
-
-    const promise = axios.post(URL, data);
-    promise.then((response) =>{console.log(response.data)
-    navigate("/habitos", { state: response.data })})
-    promise.catch((e) =>{console.log(e)})
+    logIn(data)
   }
   return (
     <Container>

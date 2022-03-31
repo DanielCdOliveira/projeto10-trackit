@@ -7,5 +7,6 @@ const Main = styled.main`
     margin: 70px 5%;
     height: 100%;
     align-self: center;
+    transition: all 5s;
 `
 export default Main
