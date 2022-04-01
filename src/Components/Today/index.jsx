@@ -14,12 +14,13 @@ function Today() {
   const { user } = useContext(AuthContext);
   const [todayHabits, setTodayHabits] = useState([]);
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+
   useEffect(() => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
     const promise = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
       config
@@ -33,6 +34,20 @@ function Today() {
     });
   }, []);
 
+  function refreshData() {
+    const promise = axios.get(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+      config
+    );
+
+    promise.then((response) => {
+      setTodayHabits(response.data);
+    });
+    promise.catch((response) => {
+      console.log(response);
+    });
+  }
+
   return (
     <Main>
       <Header image={user.img} />
@@ -42,10 +57,10 @@ function Today() {
       </Title>
       <ul>
         {todayHabits.map((item) => (
-          <HabitsToday key={item.id} item={item} />
+          <HabitsToday key={item.id} item={item} refreshData={refreshData} />
         ))}
       </ul>
-      <Footer />
+      <Footer/>
     </Main>
   );
 }

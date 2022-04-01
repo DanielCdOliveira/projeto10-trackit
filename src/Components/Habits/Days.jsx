@@ -8,7 +8,7 @@ function Days({ week, days, setDays }) {
     if (selected) {
         setDays(
             days.filter((item) => {
-              return item != id;
+              return item !== id;
             })
           );
       setSelected(false);

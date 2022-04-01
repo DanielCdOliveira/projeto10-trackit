@@ -21,8 +21,8 @@ function Start() {
     <Container>
       <img src={logo} alt="" />
       <form onSubmit={login}>
-        <input type="email" name="" id="" placeholder="email" onChange={(e) => setData({ ...data, email: e.target.value })}/>
-        <input type="password" name="" id="" placeholder="senha"onChange={(e) => setData({ ...data, password: e.target.value })}/>
+        <input type="email" name="" id="email-login" placeholder="email" onChange={(e) => setData({ ...data, email: e.target.value })}/>
+        <input type="password" name="" id="senha-login" placeholder="senha"onChange={(e) => setData({ ...data, password: e.target.value })}/>
         <button type="submit">Entrar</button>
       </form>
       <Link to={"/cadastro"}>

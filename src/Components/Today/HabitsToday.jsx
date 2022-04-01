@@ -2,14 +2,51 @@ import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-import { AuthContext } from "../../Context/Auth";
 
+import { AuthContext } from "../../Context/Auth";
 import { BsCheckSquareFill } from "react-icons/bs";
 
-function HabitsToday({ item }) {
-  
+function HabitsToday({ item , refreshData}) {
+  const { user } = useContext(AuthContext);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+ 
+  let css = item.done ? "check" : "";
+  function check(id, done) {
+    if (done) {
+      const promise = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,
+        null,
+        config
+      );
+      promise.then((response) => {
+        refreshData()
+        console.log(response);
+      });
+      promise.catch((response) => {
+        console.log(response);
+      });
+    } else {
+      const promise = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,
+        null,
+        config
+      );
+      promise.then((response) => {
+        refreshData()
+        console.log(response);
+      });
+      promise.catch((response) => {
+        console.log(response);
+      });
+    }
+  }
+
   return (
-    <Habit >
+    <Habit>
       <div className="info">
         <h4>{item.name}</h4>
         <p>
@@ -19,8 +56,11 @@ function HabitsToday({ item }) {
           Seu recorde:<span> {item.highestSequence}</span>
         </p>
       </div>
-      <div className="check">
-        <BsCheckSquareFill />
+      <div>
+        <BsCheckSquareFill
+          className={`check-box ${css}`}
+          onClick={() => check(item.id, item.done)}
+        />
       </div>
     </Habit>
   );
@@ -45,8 +85,11 @@ const Habit = styled.li`
     font-size: 13px;
     line-height: 16px;
   }
-  svg{
+  svg {
     font-size: 70px;
+  }
+  .check {
+    color: #8fc54a;
   }
 `;
 

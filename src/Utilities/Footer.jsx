@@ -1,9 +1,22 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useContext } from "react/";
+import { AuthContext } from "../Context/Auth";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useState } from "react";
 
 function Footer() {
+  const { progress, percentage } = useContext(AuthContext);
+   
+
+  console.log(percentage)
+
+
+
+
+
+
   return (
     <FooteR>
       <Link to={"/habitos"}>
@@ -12,7 +25,8 @@ function Footer() {
       <Link to={"/hoje"}>
         <div className="progress-bar">
           <CircularProgressbar
-            value={66}
+            value={percentage}
+            maxValue={1}
             text={"Hoje"}
             styles={buildStyles({
               pathTransitionDuration: 0.5,

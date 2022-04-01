@@ -7,8 +7,13 @@ export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState({ token: "", img: "" });
-  const navigate = useNavigate();
+  const [progress,setProgress] = useState({done:5, total:20})
+  const [percentage, setPercentage] = useState(progress.done/ progress.total)
 
+
+
+
+   const navigate = useNavigate();
   function logIn(data) {
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
@@ -17,15 +22,19 @@ function AuthProvider({ children }) {
     promise.then((response) => {
       console.log(response.data);
       setUser({ ...data, token: response.data.token, img: response.data.image });
-      navigate("/habitos");
+      navigate("/hoje");
       promise.catch((e) => {
         console.log(e);
       });
     });
   }
 
+
+
+  
+
   return (
-    <AuthContext.Provider value={{ user, logIn }}>
+    <AuthContext.Provider value={{ user, logIn, progress, setProgress, setPercentage ,percentage}}>
       {children}
     </AuthContext.Provider>
   );

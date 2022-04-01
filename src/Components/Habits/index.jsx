@@ -15,6 +15,7 @@ function Habits() {
   const { user } = useContext(AuthContext);
   const [addHabit, setAddHabit] = useState(false);
   const [myHabits, setMyHabits] = useState([]);
+  const [text, setText] = useState()
  
   useEffect(() => {
     const config = {
@@ -28,13 +29,15 @@ function Habits() {
     );
 
     promise.then((response) => {
+      setText("Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!")
       setMyHabits(response.data);
     });
     promise.catch((response) => {
       console.log(response);
     });
   }, []);
- 
+  
+
   
   function toggle() {
     setAddHabit(true);
@@ -55,9 +58,11 @@ function Habits() {
         </Title>
         <NewHabit addHabit={addHabit} setAddHabit={setAddHabit} setMyHabits={setMyHabits}/>
         <ul>
-          {myHabits.map((item,index,) => (
+          {(myHabits.length > 0) ? (myHabits.map((item,index,) => (
             <ShowMyHabits key={index}item={item} setMyHabits={setMyHabits} />
-          ))}
+          ))):<p>{text}
+            </p>}
+          
         </ul>
         <Footer />
       </Main>)
