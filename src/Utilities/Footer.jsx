@@ -4,18 +4,12 @@ import { useContext } from "react/";
 import { AuthContext } from "../Context/Auth";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { useState } from "react";
 
 function Footer() {
-  const { progress, percentage } = useContext(AuthContext);
-   
+  const { percentage, progress } = useContext(AuthContext);
 
-  console.log(percentage)
-
-
-
-
-
+  console.log(progress);
+  console.log(percentage);
 
   return (
     <FooteR>
@@ -32,10 +26,9 @@ function Footer() {
               pathTransitionDuration: 0.5,
               pathColor: `#fff`,
               trailColor: "var(--highlight-color)",
-              textColor: '#fff'
+              textColor: "#fff",
             })}
           />
-         
         </div>
       </Link>
       <Link to={"/historico"}>
@@ -63,7 +56,8 @@ const FooteR = styled.footer`
   p {
     color: var(--highlight-color);
   }
-  .progress-bar {  font-size: 18px;
+  .progress-bar {
+    font-size: 18px;
     position: fixed;
     bottom: 20px;
     left: calc(50% - 45px);

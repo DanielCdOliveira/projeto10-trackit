@@ -6,7 +6,7 @@ import Days from "./Days";
 import { AuthContext } from "../../Context/Auth";
 
 function NewHabit(props) {
-  const { user } = useContext(AuthContext);
+  const { user , progressBar} = useContext(AuthContext);
   const { addHabit, setAddHabit, setMyHabits } = props;
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [days, setDays] = useState([]);
@@ -35,7 +35,7 @@ function NewHabit(props) {
         "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
         config
       );
-
+        progressBar()
       promise.then((response) => {
         setMyHabits(response.data);
       });

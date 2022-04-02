@@ -2,19 +2,19 @@ import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-
 import { AuthContext } from "../../Context/Auth";
 import { BsCheckSquareFill } from "react-icons/bs";
 
-function HabitsToday({ item , refreshData}) {
-  const { user } = useContext(AuthContext);
+function HabitsToday({ item, refreshData }) {
+  const { user, progress, setProgress, setPercentage } =
+    useContext(AuthContext);
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
   };
- 
   let css = item.done ? "check" : "";
+ 
   function check(id, done) {
     if (done) {
       const promise = axios.post(
@@ -23,7 +23,10 @@ function HabitsToday({ item , refreshData}) {
         config
       );
       promise.then((response) => {
-        refreshData()
+        progress.done -= 1;
+        setPercentage(progress.done / progress.total);
+        setProgress({ ...progress });
+        refreshData();
         console.log(response);
       });
       promise.catch((response) => {
@@ -36,13 +39,17 @@ function HabitsToday({ item , refreshData}) {
         config
       );
       promise.then((response) => {
-        refreshData()
+        progress.done += 1;
+        setPercentage(progress.done / progress.total);
+        setProgress({ ...progress });
+        refreshData();
         console.log(response);
       });
       promise.catch((response) => {
         console.log(response);
       });
     }
+   
   }
 
   return (

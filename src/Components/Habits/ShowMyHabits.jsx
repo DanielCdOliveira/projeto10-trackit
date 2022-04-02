@@ -4,14 +4,15 @@ import { AuthContext } from "../../Context/Auth";
 import { useContext } from "react";
 import { BsTrash } from "react-icons/bs";
 
-function ShowMyHabits({ item, haveHabit, setMyHabits }) {
-  const { user } = useContext(AuthContext);
+function ShowMyHabits({ item, setMyHabits }) {
+  const { user, progressBar } = useContext(AuthContext);
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
   };
+
   function deleteHabit(id) {
     if (window.confirm("Tem certeza que deseja remover este hábito?")) {
       const promise = axios.delete(
@@ -19,17 +20,13 @@ function ShowMyHabits({ item, haveHabit, setMyHabits }) {
         config
       );
       promise.then(() => {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
         const promise = axios.get(
           "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
           config
         );
 
         promise.then((response) => {
+          progressBar();
           setMyHabits(response.data);
         });
         promise.catch((response) => {
@@ -42,7 +39,6 @@ function ShowMyHabits({ item, haveHabit, setMyHabits }) {
     }
     console.log(id);
   }
-  console.log(haveHabit);
 
   return (
     <Habit>

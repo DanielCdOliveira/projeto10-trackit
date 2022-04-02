@@ -11,7 +11,7 @@ import HabitsToday from "./HabitsToday";
 import Footer from "../../Utilities/Footer";
 
 function Today() {
-  const { user } = useContext(AuthContext);
+  const { user, progress, setProgress, progressBar} = useContext(AuthContext);
   const [todayHabits, setTodayHabits] = useState([]);
 
   const config = {
@@ -20,13 +20,23 @@ function Today() {
     },
   };
 
+  
   useEffect(() => {
+    
     const promise = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
       config
     );
 
     promise.then((response) => {
+      progress.total = response.data.length;
+      progress.done = 0;
+      response.data.forEach((item)=>{
+        if(item.done){
+          progress.done += 1
+        }
+      })
+      setProgress({ ...progress });
       setTodayHabits(response.data);
     });
     promise.catch((response) => {
@@ -42,6 +52,7 @@ function Today() {
 
     promise.then((response) => {
       setTodayHabits(response.data);
+
     });
     promise.catch((response) => {
       console.log(response);
