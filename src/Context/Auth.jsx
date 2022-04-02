@@ -9,7 +9,7 @@ export const AuthContext = createContext({});
 function AuthProvider({ children }) {
   const [user, setUser] = useState({ token: "", img: "" });
   const [progress, setProgress] = useState({ done: 0, total: 0 });
-  const [percentage, setPercentage] = useState(0);
+  const [percentage, setPercentage] = useState(progress.done / progress.total);
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,

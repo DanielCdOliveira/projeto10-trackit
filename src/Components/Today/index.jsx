@@ -11,7 +11,8 @@ import HabitsToday from "./HabitsToday";
 import Footer from "../../Utilities/Footer";
 
 function Today() {
-  const { user, progress, setProgress, progressBar} = useContext(AuthContext);
+  const { user, progress, setProgress, setPercentage, percentage } =
+    useContext(AuthContext);
   const [todayHabits, setTodayHabits] = useState([]);
 
   const config = {
@@ -20,9 +21,7 @@ function Today() {
     },
   };
 
-  
   useEffect(() => {
-    
     const promise = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
       config
@@ -31,12 +30,13 @@ function Today() {
     promise.then((response) => {
       progress.total = response.data.length;
       progress.done = 0;
-      response.data.forEach((item)=>{
-        if(item.done){
-          progress.done += 1
+      response.data.forEach((item) => {
+        if (item.done) {
+          progress.done += 1;
         }
-      })
+      });
       setProgress({ ...progress });
+      setPercentage(progress.done / progress.total);
       setTodayHabits(response.data);
     });
     promise.catch((response) => {
@@ -52,7 +52,6 @@ function Today() {
 
     promise.then((response) => {
       setTodayHabits(response.data);
-
     });
     promise.catch((response) => {
       console.log(response);
@@ -64,14 +63,20 @@ function Today() {
       <Header image={user.img} />
       <Title>
         <FormatDate />
-        <h3></h3>
+        {progress.done > 0 ? (
+          <h3 className="subtitle green">
+            {percentage * 100}% dos hábitos concluídos
+          </h3>
+        ) : (
+          <h3 className="subtitle">Nenhum hábito concluído ainda</h3>
+        )}
       </Title>
       <ul>
         {todayHabits.map((item) => (
           <HabitsToday key={item.id} item={item} refreshData={refreshData} />
         ))}
       </ul>
-      <Footer/>
+      <Footer />
     </Main>
   );
 }
@@ -79,15 +84,20 @@ const Title = styled.div`
   margin-top: 30px;
   margin-bottom: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+
   h2 {
     font-size: 23px;
     line-height: 29px;
     color: #126ba5;
   }
-  ul {
-    margin-top: 28px;
+  .subtitle {
+    font-size: 18px;
+    line-height: 22px;
+    color: #bababa;
+  }
+  .green {
+    color: #8fc549;
   }
 `;
 
