@@ -30,9 +30,13 @@ const Container = styled.main`
     line-height: 25px;
     padding-left: 11px;
   }
-  input:focus{
+  input:focus {
     border: 2px solid #52b6ff;
     outline: 0;
+  }
+  input:disabled {
+    background: #f2f2f2;
+    border: 1px solid #d5d5d5;
   }
   button {
     width: 100%;
@@ -44,6 +48,12 @@ const Container = styled.main`
     background-color: #52b6ff;
     border: none;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button:disabled {
+    background-color: #52b6ff;
   }
   p {
     margin-top: 25px;
@@ -54,8 +64,8 @@ const Container = styled.main`
     text-decoration: none;
   }
   ::placeholder {
-    color:#D4D4D4;
+    color: #d4d4d4;
   }
 `;
 
-export default Container
+export default Container;

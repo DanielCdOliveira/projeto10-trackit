@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import { useEffect } from "react";
+
 
 export const AuthContext = createContext({});
 
@@ -17,7 +17,7 @@ function AuthProvider({ children }) {
   };
   const navigate = useNavigate();
 
-  function logIn(data) {
+  function logIn(data, setDisabled) {
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
 
@@ -32,6 +32,7 @@ function AuthProvider({ children }) {
       navigate("/hoje");
     });
     promise.catch((e) => {
+      setDisabled(false)
       console.log(e);
     });
   }
