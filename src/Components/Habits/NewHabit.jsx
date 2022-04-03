@@ -4,6 +4,7 @@ import axios from "axios";
 
 import Days from "./Days";
 import { AuthContext } from "../../Context/Auth";
+import { ThreeDots } from  'react-loader-spinner'
 
 function NewHabit(props) {
   const { user , progressBar} = useContext(AuthContext);
@@ -11,6 +12,7 @@ function NewHabit(props) {
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [days, setDays] = useState([]);
   const [habit, setHabit] = useState("");
+  const [disabled, setDisbled] = useState(false)
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
@@ -23,6 +25,7 @@ function NewHabit(props) {
     setHabit("");
   }
   function save() {
+    setDisbled(true)
     const data = { name: habit, days: days };
     console.log(data);
     const promise = axios.post(
@@ -31,19 +34,24 @@ function NewHabit(props) {
       config
     );
     promise.then((response) => {
-      const promise = axios.get(
+      const promise2 = axios.get(
         "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
         config
       );
+      setDisbled(false)
+      setDays([]);
+      setHabit("");
         progressBar()
-      promise.then((response) => {
+      promise2.then((response) => {
         setMyHabits(response.data);
       });
-      promise.catch((response) => {
+      promise2.catch((response) => {
         console.log(response);
       });
     });
     promise.catch((response) => {
+      setDisbled(false)
+      alert("Não foi possível concluir a ação!")
       console.log(response);
     });
   }
@@ -52,6 +60,7 @@ function NewHabit(props) {
     return (
       <New>
         <input
+        disabled={disabled}
           type="text"
           name=""
           id=""
@@ -63,11 +72,11 @@ function NewHabit(props) {
         />
         <Days week={week} days={days} setDays={setDays} />
         <div className="buttons">
-          <button onClick={() => cancel()} className="cancel">
+          <button disabled={disabled} onClick={() => cancel()} className="cancel">
             Cancelar
           </button>
-          <button onClick={() => save()} className="save">
-            Salvar
+          <button disabled={disabled} onClick={() => save()} className="save">
+          {disabled ? 	<ThreeDots color="#FFF" height={11} width={43} />:"Entrar"}
           </button>
         </div>
       </New>
@@ -120,7 +129,11 @@ const New = styled.div`
     color: #fff;
     border-radius: 5px;
     margin-left: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+  
 `;
 
 export default NewHabit;

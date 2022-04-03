@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
-
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
@@ -32,12 +31,13 @@ function AuthProvider({ children }) {
       navigate("/hoje");
     });
     promise.catch((e) => {
-      setDisabled(false)
+      setDisabled(false);
+      alert("Não foi possível concluir a ação!");
       console.log(e);
     });
   }
 
-function progressBar (){
+  function progressBar() {
     const promise2 = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
       config
@@ -46,14 +46,14 @@ function progressBar (){
     promise2.then((response) => {
       progress.total = response.data.length;
       progress.done = 0;
-      response.data.forEach((item)=>{
-        if(item.done){
-          progress.done += 1
+      response.data.forEach((item) => {
+        if (item.done) {
+          progress.done += 1;
         }
-      })
-      if(progress.total === 0){
-        setPercentage(0)
-      }else{
+      });
+      if (progress.total === 0) {
+        setPercentage(0);
+      } else {
         setPercentage(progress.done / progress.total);
       }
       setProgress({ ...progress });

@@ -4,7 +4,7 @@ import axios from "axios";
 
 import logo from "./../../assets/logo.png";
 import Container from "./../../Utilities/Container.jsx";
-import { ThreeDots } from  'react-loader-spinner'
+import { ThreeDots } from "react-loader-spinner";
 
 function Register() {
   const [data, setData] = useState({
@@ -17,8 +17,8 @@ function Register() {
   const navigate = useNavigate();
 
   function newRegister(e) {
-    console.log(data)
-    setDisbled(true)
+    console.log(data);
+    setDisbled(true);
     e.preventDefault();
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
@@ -28,7 +28,8 @@ function Register() {
       navigate("/");
     });
     promise.catch((e) => {
-      setDisbled(false)
+      setDisbled(false);
+      alert("Não foi possível concluir a ação!");
       console.log(e.data);
     });
   }
@@ -69,7 +70,13 @@ function Register() {
           placeholder="foto"
           onChange={(e) => setData({ ...data, image: e.target.value })}
         />
-        <button disabled={disabled} type="submit">{disabled ? 	<ThreeDots color="#FFF" height={13} width={50} />:"Cadastrar"}</button>
+        <button disabled={disabled} type="submit">
+          {disabled ? (
+            <ThreeDots color="#FFF" height={13} width={50} />
+          ) : (
+            "Cadastrar"
+          )}
+        </button>
       </form>
       <Link to={"/"}>
         <p>Já tem uma conta? Faça login!</p>
