@@ -14,7 +14,9 @@ function HabitsToday({ item, refreshData }) {
     },
   };
   let css = item.done ? "check" : "";
- 
+  let current = (item.currentSequence > 0)? "streak" :""
+  let equal = (item.currentSequence !==0 && item.currentSequence === item.highestSequence) ? "streak" : ""
+
   function check(id, done) {
     if (done) {
       const promise = axios.post(
@@ -53,14 +55,14 @@ function HabitsToday({ item, refreshData }) {
   }
 
   return (
-    <Habit>
+    <Habit current={item.currentSequence} highest={item.highestSequence}>
       <div className="info">
         <h4>{item.name}</h4>
         <p>
-          Sequência atual:<span> {item.currentSequence}</span>
+          Sequência atual:<span className={current}> {item.currentSequence}</span>
         </p>
         <p>
-          Seu recorde:<span> {item.highestSequence}</span>
+          Seu recorde:<span className={equal}> {item.highestSequence}</span>
         </p>
       </div>
       <div>
@@ -97,6 +99,9 @@ const Habit = styled.li`
   }
   .check {
     color: #8fc54a;
+  }
+  .streak{
+    color:#8FC549
   }
 `;
 
