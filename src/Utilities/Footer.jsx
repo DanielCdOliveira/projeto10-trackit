@@ -6,10 +6,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 function Footer() {
-  const { percentage, progress } = useContext(AuthContext);
-
-  console.log(progress);
-  console.log(percentage);
+  const { percentage } = useContext(AuthContext);
 
   return (
     <FooteR>

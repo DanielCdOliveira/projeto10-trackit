@@ -2,27 +2,24 @@ import { useState } from "react";
 import styled from "styled-components";
 
 function Days({ week, days, setDays }) {
-  console.log(week);
-
   function select(id, selected, setSelected) {
     if (selected) {
-        setDays(
-            days.filter((item) => {
-              return item !== id;
-            })
-          );
+      setDays(
+        days.filter((item) => {
+          return item !== id;
+        })
+      );
       setSelected(false);
     } else {
       setDays([...days, id]);
       setSelected(true);
     }
-  
   }
-  console.log(days);
+
   return (
     <Week>
       {week.map((item, id) => (
-        <CreateDay key={item+id}item={item} id={id} select={select} />
+        <CreateDay key={item + id} item={item} id={id} select={select} />
       ))}
     </Week>
   );

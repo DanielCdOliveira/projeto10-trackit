@@ -22,7 +22,6 @@ function AuthProvider({ children }) {
 
     const promise = axios.post(URL, data);
     promise.then((response) => {
-      console.log(response.data);
       setUser({
         ...data,
         token: response.data.token,

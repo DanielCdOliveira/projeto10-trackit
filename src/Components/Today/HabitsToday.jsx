@@ -6,17 +6,19 @@ import { AuthContext } from "../../Context/Auth";
 import { BsCheckSquareFill } from "react-icons/bs";
 
 function HabitsToday({ item, refreshData }) {
-  const {  progress, setProgress, setPercentage } =
-    useContext(AuthContext);
-    const user =JSON.parse(localStorage.getItem("userData"));
+  const { progress, setProgress, setPercentage } = useContext(AuthContext);
+  const user = JSON.parse(localStorage.getItem("userData"));
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
   };
   let css = item.done ? "check" : "";
-  let current = (item.done)? "streak" :""
-  let equal = (item.currentSequence !==0 && item.currentSequence === item.highestSequence) ? "streak" : ""
+  let current = item.done ? "streak" : "";
+  let equal =
+    item.currentSequence !== 0 && item.currentSequence === item.highestSequence
+      ? "streak"
+      : "";
 
   function check(id, done) {
     if (done) {
@@ -30,7 +32,6 @@ function HabitsToday({ item, refreshData }) {
         setPercentage(progress.done / progress.total);
         setProgress({ ...progress });
         refreshData();
-        console.log(response);
       });
       promise.catch((response) => {
         console.log(response);
@@ -46,13 +47,11 @@ function HabitsToday({ item, refreshData }) {
         setPercentage(progress.done / progress.total);
         setProgress({ ...progress });
         refreshData();
-        console.log(response);
       });
       promise.catch((response) => {
         console.log(response);
       });
     }
-   
   }
 
   return (
@@ -60,7 +59,8 @@ function HabitsToday({ item, refreshData }) {
       <div className="info">
         <h4>{item.name}</h4>
         <p>
-          Sequência atual:<span className={current}> {item.currentSequence}</span>
+          Sequência atual:
+          <span className={current}> {item.currentSequence}</span>
         </p>
         <p>
           Seu recorde:<span className={equal}> {item.highestSequence}</span>
@@ -101,8 +101,8 @@ const Habit = styled.li`
   .check {
     color: #8fc54a;
   }
-  .streak{
-    color:#8FC549
+  .streak {
+    color: #8fc549;
   }
 `;
 

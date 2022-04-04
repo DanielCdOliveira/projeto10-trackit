@@ -17,14 +17,12 @@ function Register() {
   const navigate = useNavigate();
 
   function newRegister(e) {
-    console.log(data);
     setDisbled(true);
     e.preventDefault();
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
     const promise = axios.post(URL, data);
     promise.then((e) => {
-      console.log(e);
       navigate("/");
     });
     promise.catch((e) => {

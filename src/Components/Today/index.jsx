@@ -14,7 +14,7 @@ function Today() {
   const { progress, setProgress, setPercentage, percentage } =
     useContext(AuthContext);
   const [todayHabits, setTodayHabits] = useState([]);
-  const user =JSON.parse(localStorage.getItem("userData"));
+  const user = JSON.parse(localStorage.getItem("userData"));
 
   const config = {
     headers: {

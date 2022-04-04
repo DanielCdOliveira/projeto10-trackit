@@ -15,8 +15,8 @@ function Habits() {
   const { user } = useContext(AuthContext);
   const [addHabit, setAddHabit] = useState(false);
   const [myHabits, setMyHabits] = useState([]);
-  const [text, setText] = useState()
- 
+  const [text, setText] = useState();
+
   useEffect(() => {
     const config = {
       headers: {
@@ -29,45 +29,48 @@ function Habits() {
     );
 
     promise.then((response) => {
-      setText("Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!")
+      setText(
+        "Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!"
+      );
       setMyHabits(response.data);
     });
     promise.catch((response) => {
       console.log(response);
     });
   }, []);
-  
 
-  
   function toggle() {
     setAddHabit(true);
   }
 
-
-  
-    return (
-      <Main>
-        <Header image={user.img} />
-        <Title>
-          <h2>Meus hábitos</h2>
-          <BsPlusSquareFill
-            onClick={() => {
-              toggle();
-            }}
-          />
-        </Title>
-        <NewHabit addHabit={addHabit} setAddHabit={setAddHabit} setMyHabits={setMyHabits}/>
-        <ul>
-          {(myHabits.length > 0) ? (myHabits.map((item,index,) => (
-            <ShowMyHabits key={index}item={item} setMyHabits={setMyHabits} />
-          ))):<p>{text}
-            </p>}
-          
-        </ul>
-        <Footer />
-      </Main>)
-  
-  
+  return (
+    <Main>
+      <Header image={user.img} />
+      <Title>
+        <h2>Meus hábitos</h2>
+        <BsPlusSquareFill
+          onClick={() => {
+            toggle();
+          }}
+        />
+      </Title>
+      <NewHabit
+        addHabit={addHabit}
+        setAddHabit={setAddHabit}
+        setMyHabits={setMyHabits}
+      />
+      <ul>
+        {myHabits.length > 0 ? (
+          myHabits.map((item, index) => (
+            <ShowMyHabits key={index} item={item} setMyHabits={setMyHabits} />
+          ))
+        ) : (
+          <p>{text}</p>
+        )}
+      </ul>
+      <Footer />
+    </Main>
+  );
 }
 
 const Title = styled.div`
@@ -85,7 +88,7 @@ const Title = styled.div`
     color: var(--highlight-color);
     font-size: 30px;
   }
-  ul{
+  ul {
     display: flex;
     flex-direction: column;
   }

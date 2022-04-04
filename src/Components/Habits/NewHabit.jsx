@@ -4,16 +4,16 @@ import axios from "axios";
 
 import Days from "./Days";
 import { AuthContext } from "../../Context/Auth";
-import { ThreeDots } from  'react-loader-spinner'
+import { ThreeDots } from "react-loader-spinner";
 
 function NewHabit(props) {
-  const {  progressBar} = useContext(AuthContext);
-  const user =JSON.parse(localStorage.getItem("userData"));
+  const { progressBar } = useContext(AuthContext);
+  const user = JSON.parse(localStorage.getItem("userData"));
   const { addHabit, setAddHabit, setMyHabits } = props;
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [days, setDays] = useState([]);
   const [habit, setHabit] = useState("");
-  const [disabled, setDisbled] = useState(false)
+  const [disabled, setDisbled] = useState(false);
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
@@ -26,9 +26,9 @@ function NewHabit(props) {
     setHabit("");
   }
   function save() {
-    setDisbled(true)
+    setDisbled(true);
     const data = { name: habit, days: days };
-    console.log(data);
+
     const promise = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
       data,
@@ -39,10 +39,10 @@ function NewHabit(props) {
         "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
         config
       );
-      setDisbled(false)
+      setDisbled(false);
       setDays([]);
       setHabit("");
-        progressBar()
+      progressBar();
       promise2.then((response) => {
         setMyHabits(response.data);
       });
@@ -51,8 +51,8 @@ function NewHabit(props) {
       });
     });
     promise.catch((response) => {
-      setDisbled(false)
-      alert("Não foi possível concluir a ação!")
+      setDisbled(false);
+      alert("Não foi possível concluir a ação!");
       console.log(response);
     });
   }
@@ -61,7 +61,7 @@ function NewHabit(props) {
     return (
       <New>
         <input
-        disabled={disabled}
+          disabled={disabled}
           type="text"
           name=""
           id=""
@@ -73,11 +73,19 @@ function NewHabit(props) {
         />
         <Days week={week} days={days} setDays={setDays} />
         <div className="buttons">
-          <button disabled={disabled} onClick={() => cancel()} className="cancel">
+          <button
+            disabled={disabled}
+            onClick={() => cancel()}
+            className="cancel"
+          >
             Cancelar
           </button>
           <button disabled={disabled} onClick={() => save()} className="save">
-          {disabled ? 	<ThreeDots color="#FFF" height={11} width={43} />:"Entrar"}
+            {disabled ? (
+              <ThreeDots color="#FFF" height={11} width={43} />
+            ) : (
+              "Entrar"
+            )}
           </button>
         </div>
       </New>
@@ -134,7 +142,6 @@ const New = styled.div`
     justify-content: center;
     align-items: center;
   }
-  
 `;
 
 export default NewHabit;
