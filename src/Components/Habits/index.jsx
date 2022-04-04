@@ -12,7 +12,7 @@ import { BsPlusSquareFill } from "react-icons/bs";
 import ShowMyHabits from "./ShowMyHabits";
 
 function Habits() {
-  const { user } = useContext(AuthContext);
+  const user = JSON.parse(localStorage.getItem("userData"));
   const [addHabit, setAddHabit] = useState(false);
   const [myHabits, setMyHabits] = useState([]);
   const [text, setText] = useState();

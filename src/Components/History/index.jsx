@@ -6,7 +6,7 @@ import Main from "../../Utilities/Main";
 import Footer from "../../Utilities/Footer";
 import { AuthContext } from "../../Context/Auth";
 function History() {
-  const { user } = useContext(AuthContext);
+  const user = JSON.parse(localStorage.getItem("userData"));
   return (
     <Main>
       <Header image={user.img} />
