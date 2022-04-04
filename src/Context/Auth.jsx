@@ -28,9 +28,11 @@ function AuthProvider({ children }) {
         token: response.data.token,
         img: response.data.image,
       });
-      localStorage.setItem("email", data.email);
+      const userData = { token: response.data.token, img: response.data.image };
+      const userDataString = JSON.stringify(userData);
       const dataString = JSON.stringify(data);
-      localStorage.setItem("user", dataString);
+      localStorage.setItem("userData", userDataString);
+      localStorage.setItem("userLogin", dataString);
       navigate("/hoje");
     });
     promise.catch((e) => {

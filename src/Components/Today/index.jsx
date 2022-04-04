@@ -11,9 +11,10 @@ import HabitsToday from "./HabitsToday";
 import Footer from "../../Utilities/Footer";
 
 function Today() {
-  const { user, progress, setProgress, setPercentage, percentage } =
+  const { progress, setProgress, setPercentage, percentage } =
     useContext(AuthContext);
   const [todayHabits, setTodayHabits] = useState([]);
+  const user =JSON.parse(localStorage.getItem("userData"));
 
   const config = {
     headers: {

@@ -6,15 +6,16 @@ import { AuthContext } from "../../Context/Auth";
 import { BsCheckSquareFill } from "react-icons/bs";
 
 function HabitsToday({ item, refreshData }) {
-  const { user, progress, setProgress, setPercentage } =
+  const {  progress, setProgress, setPercentage } =
     useContext(AuthContext);
+    const user =JSON.parse(localStorage.getItem("userData"));
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
   };
   let css = item.done ? "check" : "";
-  let current = (item.currentSequence > 0)? "streak" :""
+  let current = (item.done)? "streak" :""
   let equal = (item.currentSequence !==0 && item.currentSequence === item.highestSequence) ? "streak" : ""
 
   function check(id, done) {

@@ -7,7 +7,8 @@ import { AuthContext } from "../../Context/Auth";
 import { ThreeDots } from  'react-loader-spinner'
 
 function NewHabit(props) {
-  const { user , progressBar} = useContext(AuthContext);
+  const {  progressBar} = useContext(AuthContext);
+  const user =JSON.parse(localStorage.getItem("userData"));
   const { addHabit, setAddHabit, setMyHabits } = props;
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [days, setDays] = useState([]);

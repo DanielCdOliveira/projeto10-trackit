@@ -5,7 +5,8 @@ import { useContext } from "react";
 import { BsTrash } from "react-icons/bs";
 
 function ShowMyHabits({ item, setMyHabits }) {
-  const { user, progressBar } = useContext(AuthContext);
+  const {  progressBar } = useContext(AuthContext);
+  const user =JSON.parse(localStorage.getItem("userData"));
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const config = {
     headers: {
