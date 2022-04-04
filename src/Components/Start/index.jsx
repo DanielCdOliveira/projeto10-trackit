@@ -14,6 +14,11 @@ function Start() {
   });
   const [disabled, setDisbled] = useState(false);
 
+
+  if(localStorage.length>0){
+    logIn(JSON.parse(localStorage.getItem("user")))
+  }
+
   function login(e) {
     setDisbled(true);
     e.preventDefault();

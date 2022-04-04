@@ -28,6 +28,9 @@ function AuthProvider({ children }) {
         token: response.data.token,
         img: response.data.image,
       });
+      localStorage.setItem("email", data.email);
+      const dataString = JSON.stringify(data);
+      localStorage.setItem("user", dataString);
       navigate("/hoje");
     });
     promise.catch((e) => {
@@ -62,22 +65,6 @@ function AuthProvider({ children }) {
       console.log(response);
     });
   }
-
-  // function getLength() {
-  //   const promise2 = axios.get(
-  //     "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
-  //     config
-  //   );
-  //   setProgress({ ...progress, done: 0 });
-  //   promise2.then((response) => {
-  //     progress.total = response.data.length;
-
-  //     setProgress({ ...progress });
-  //   });
-  //   promise2.catch((response) => {
-  //     console.log(response);
-  //   });
-  // }
 
   return (
     <AuthContext.Provider

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Start from "../Start";
 import Register from "../Register";
 import Habits from "../Habits";
@@ -6,6 +6,7 @@ import Today from "../Today";
 import History from "../History";
 import GlobalStyle from "../../assets/css/globalStyles";
 import AuthProvider from "../../Context/Auth";
+
 function App() {
   return (
     <BrowserRouter>
