@@ -1,10 +1,10 @@
-import { useContext } from "react";
+
 import styled from "styled-components";
 
 import Header from "../../Utilities/Header";
 import Main from "../../Utilities/Main";
 import Footer from "../../Utilities/Footer";
-import { AuthContext } from "../../Context/Auth";
+
 function History() {
   const user = JSON.parse(localStorage.getItem("userData"));
   return (

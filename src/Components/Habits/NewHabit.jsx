@@ -34,7 +34,7 @@ function NewHabit(props) {
       data,
       config
     );
-    promise.then((response) => {
+    promise.then(() => {
       const promise2 = axios.get(
         "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
         config

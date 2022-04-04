@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -6,7 +6,6 @@ import Header from "../../Utilities/Header";
 import Main from "../../Utilities/Main";
 import NewHabit from "./NewHabit";
 import Footer from "../../Utilities/Footer";
-import { AuthContext } from "../../Context/Auth";
 
 import { BsPlusSquareFill } from "react-icons/bs";
 import ShowMyHabits from "./ShowMyHabits";

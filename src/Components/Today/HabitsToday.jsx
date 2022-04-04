@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import {useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -16,7 +16,7 @@ function HabitsToday({ item, refreshData }) {
   let css = item.done ? "check" : "";
   let current = item.done ? "streak" : "";
   let equal =
-    item.currentSequence !== 0 && item.currentSequence === item.highestSequence
+    item.done && item.currentSequence === item.highestSequence
       ? "streak"
       : "";
 
